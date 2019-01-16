@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    th, td {
+      padding: 0 10px;
+    }
+
+    /* tbody tr:nth-child(2n+1) {
+      background-color: pink;
+    }
+
+    tbody tr:nth-child(2n) {
+      background-color: yellow;
+    } */
+
+  </style>
+</head>
+<body>
+
+  <form action="#">
+    <label for="username">姓名：</label>
+    <input type="text" id="username">
+    <br>
+    <label for="email">邮箱：</label>
+    <input type="text" id="email">
+    <br>
+    <label for="mobile">手机：</label>
+    <input type="text" id="mobile">
+    <br>
+    <label for="address">地址：</label>
+    <input type="text" id="address">
+    <br>
+    <input type="button" value="添加" id="btn">
+  </form>
+
+  <table border="1">
+    <thead>
+      <tr>
+        <th>姓名</th>
+        <th>邮箱</th>
+        <th>电话</th>
+        <th>地址</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>小黑</td>
+        <td>xiaohei@itcast.cn</td>
+        <td>139xxxxxxxx</td>
+        <td>顺义</td>
+      </tr>
+    </tbody>
+  </table>
+  <script>
+
+    /*
+      1. 准备一个数据
+      2. 遍历数组
+    */
+    var arr = [
+      {
+        username: '小黑',
+        email: 'xiaohei@itcast.cn',
+        mobile: '133xxxxxxxx',
+        address: '顺义'
+      },
+      {
+        username: '小白',
+        email: 'xiaohei@itcast.cn',
+        mobile: '133xxxxxxxx',
+        address: '顺义'
+      }
+    ]
+
+    var tBody = document.querySelector('tbody')
+
+    function bindHtml() {
+      tBody.innerHTML = ''
+      for (var i = 0; i < arr.length; i++) {
+        console.log(arr[i])
+        var tr = document.createElement('tr')
+        tBody.appendChild(tr)
+        // 往 tr 里面天假内容
+        // var td1 = document.createElement('td')
+        // var td2 = document.createElement('td')
+        // var td3 = document.createElement('td')
+        // var td4 = document.createElement('td')
+        // tr.appendChild(td1)
+        // tr.appendChild(td2)
+        // tr.appendChild(td3)
+        // tr.appendChild(td4)
+
+        // td1.innerText = arr[i].username
+        // td2.innerText = arr[i].email
+        // td3.innerText = arr[i].mobile
+        // td4.innerText = arr[i].address
+
+        // 每一个对象中有多少个成员就有多少个 td
+        // 遍历对象
+        for (var key in arr[i]) {
+          var td = document.createElement('td')
+          tr.appendChild(td)
+          td.innerText = arr[i][key]
+        }
+      }
+
+
+      var trs = tBody.querySelectorAll('tr')
+      for (var j = 0; j < trs.length; j++) {
+        if (j % 2 === 0) {
+          trs[j].style.background = 'pink'
+        } else {
+          trs[j].style.background = 'yellow'
+        }
+      }
+    }
+
+    bindHtml()
+
+    var btn = document.querySelector('#btn')
+    var username = document.querySelector('#username')
+    var email = document.querySelector('#email')
+    var mobile = document.querySelector('#mobile')
+    var address = document.querySelector('#address')
+
+    btn.onclick = function () {
+
+      if (username.value.trim() === '' || email.value.trim() === '' || mobile.value.trim() === '' || address.value.trim() === '') {
+        alert('请完整填写表单')
+        return
+      }
+
+      var obj = {
+        username: username.value.trim(),
+        email: email.value.trim(),
+        mobile: mobile.value.trim(),
+        address: address.value.trim()
+      }
+
+      // 吧对象天假到数组汇总
+      arr.push(obj)
+
+      bindHtml()
+
+      // 天假成功
+      username.value = ''
+      email.value = ''
+      mobile.value = ''
+      address.value = ''
+    }
+  </script>
+</body>
+</html>
